@@ -1,5 +1,7 @@
 package com.luoye.pintu;
 
+import android.util.Log;
+
 import java.util.Random;
 
 /**
@@ -95,32 +97,29 @@ public class Board {
         return  array;
     }
     /**
-     * 通过求逆序数判断是否拼图成功，逆序数为0，拼图成功
+     * 判断是否拼图成功
      * @param arr
      * @return
      */
     public boolean isSuccess(int[][] arr)
     {
-        int sum=0;
         int idx=0;
-        int[] newArr=new int[row*col];
 
-        for (int i=0;i<arr.length;i++) {
-            for (int j=0;j<arr[i].length;j++) {
-                newArr[idx++]=arr[i][j];
-            }
-        }
-        for(int i=0;i<newArr.length;i++)
+        for(int i=0;i<arr.length;i++)
         {
-            for(int j=i+1;j<newArr.length;j++)
+            for(int j=0;j<arr[i].length&&idx<row*col-1;j++)
             {
-                if(newArr[j]<newArr[i])
+
+                if(arr[idx/row][idx%col]>arr[(idx+1)/row][(idx+1)%col])
                 {
-                    sum++;
+
+                    return false;
+
                 }
+                idx++;
             }
 
         }
-        return  sum==0;
+        return  true;
     }
 }
